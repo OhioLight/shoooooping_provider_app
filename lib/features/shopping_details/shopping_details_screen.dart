@@ -74,10 +74,13 @@ class ShoppingDetailsScreen extends StatelessWidget {
                         fit: BoxFit.cover, image: AssetImage(product.image))),
               ),
             ),
-            Text(
-              'Description: ${product.description}',
-              style: const TextStyle(color: Colors.white, fontSize: 16),
-              textAlign: TextAlign.center,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Text(
+                'Description: ${product.description}',
+                style: const TextStyle(color: Colors.white, fontSize: 16),
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(
               height: 5,
