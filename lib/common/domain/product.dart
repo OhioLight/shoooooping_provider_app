@@ -1,8 +1,9 @@
-/// A Product with a name, a description and a price.
+/// A Product with a name, a description, a price, and an id.
 class Product {
+  final int id; // Die id des Produkts
   final String name;
   final String description;
   final double price;
 
-  Product(this.name, this.description, this.price);
+  Product(this.id, this.name, this.description, this.price);
 }
