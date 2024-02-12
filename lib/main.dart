@@ -11,7 +11,8 @@ void main() {
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
       ],
-      child: const MaterialApp(home: ShoppingApp()),
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, home: ShoppingApp()),
     ),
   );
 }

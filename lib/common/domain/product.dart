@@ -4,6 +4,7 @@ class Product {
   final String name;
   final String description;
   final double price;
+  final String image;
 
-  Product(this.id, this.name, this.description, this.price);
+  Product(this.id, this.name, this.description, this.price, this.image);
 }

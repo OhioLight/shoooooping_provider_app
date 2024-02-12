@@ -14,7 +14,19 @@ class ShoppingMainScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 1, 11, 41),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromARGB(255, 0, 41, 74),
+                Color.fromARGB(255, 0, 52, 2)
+              ],
+            ),
+          ),
+        ),
         title: const Text(
           'Provider Shopping App',
           style: TextStyle(color: Colors.white),
@@ -23,15 +35,14 @@ class ShoppingMainScreen extends StatelessWidget {
           ShoppingCartButton(),
         ],
       ),
-      body: ListView.builder(
+      body: GridView.builder(
         itemCount: productProvider.getProducts().length,
         itemBuilder: (context, index) {
           final product = productProvider.getProducts()[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: ShoppingListItem(product: product),
-          );
+          return ShoppingListItem(product: product);
         },
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       ),
     );
   }

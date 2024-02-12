@@ -11,9 +11,52 @@ class ShoppingCartScreen extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
 
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        height: 45,
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromARGB(255, 0, 41, 74),
+                Color.fromARGB(255, 0, 52, 2)
+              ],
+            )),
+        child: ElevatedButton(
+          style: const ButtonStyle(
+              shadowColor: MaterialStatePropertyAll(Colors.transparent),
+              surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
+              overlayColor:
+                  MaterialStatePropertyAll(Color.fromARGB(25, 255, 255, 255)),
+              backgroundColor: MaterialStatePropertyAll(
+                Colors.transparent,
+              ),
+              foregroundColor: MaterialStatePropertyAll(Colors.transparent)),
+          onPressed: () {},
+          child: Text(
+            'Total Amount: ${cartProvider.getTotalAmount().toStringAsFixed(2)} €',
+            style: const TextStyle(
+                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+        ),
+      ),
       backgroundColor: const Color.fromARGB(255, 1, 11, 41),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 43, 43, 43),
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromARGB(255, 0, 41, 74),
+                Color.fromARGB(255, 0, 52, 2)
+              ],
+            ),
+          ),
+        ),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -31,14 +74,15 @@ class ShoppingCartScreen extends StatelessWidget {
         itemCount: cartProvider.cartItems.toSet().length,
         itemBuilder: (context, index) {
           final uniqueProducts = cartProvider.cartItems.toSet().toList();
+          uniqueProducts.sort((a, b) => a.name.compareTo(b.name));
           final product = uniqueProducts[index];
-
-          final itemCount = cartProvider.getItemCount(product);
-
-          return ShoppingCartItem(
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: ShoppingCartItem(
               cartProvider: cartProvider,
               product: product,
-              itemCount: itemCount);
+            ),
+          );
         },
       ),
     );

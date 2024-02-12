@@ -15,8 +15,9 @@ class ShoppingCartButton extends StatelessWidget {
       children: [
         IconButton(
           icon: const Icon(
-            Icons.shopping_cart_sharp,
+            Icons.shopping_bag_rounded,
             color: Colors.white,
+            size: 30,
           ),
           onPressed: () {
             Navigator.push(
@@ -28,10 +29,11 @@ class ShoppingCartButton extends StatelessWidget {
           },
         ),
         Positioned(
-          right: 0,
+          bottom: 5,
+          right: 7,
           child: CircleAvatar(
             backgroundColor: Colors.blue,
-            radius: 10,
+            radius: 8,
             child: Text(
               itemCount.toString(),
               style: const TextStyle(

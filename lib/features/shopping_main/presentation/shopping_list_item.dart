@@ -13,67 +13,100 @@ class ShoppingListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
 
-    return SizedBox(
-      height: 90,
-      child: Card(
-        color: const Color.fromARGB(255, 43, 43, 43),
-        child: ListTile(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ShoppingDetailsScreen(
-                          product: product,
-                        )));
-          },
-          title: Text(
-            product.name,
-            overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Colors.white),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShoppingDetailsScreen(
+              product: product,
+            ),
           ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product.description,
-                overflow: TextOverflow.ellipsis,
-                style:
-                    const TextStyle(color: Color.fromARGB(255, 170, 170, 170)),
-              ),
-              Text.rich(
-                TextSpan(
-                  style: const TextStyle(
-                      color: Color.fromARGB(255, 170, 170, 170)),
-                  text: 'Price:',
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: '${product.price}€',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          decoration: TextDecoration.underline,
-                          decorationColor: Colors.white,
-                        )),
+        );
+      },
+      child: Stack(
+        children: [
+          Card(
+            color: Colors.transparent,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: const LinearGradient(
+                  begin: Alignment.bottomRight,
+                  end: Alignment.topLeft,
+                  colors: [
+                    Color.fromARGB(255, 0, 41, 74),
+                    Color.fromARGB(255, 0, 52, 2)
                   ],
                 ),
               ),
-            ],
-          ),
-          trailing: IconButton(
-            icon: const Icon(
-              Icons.add_shopping_cart,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              cartProvider.addToCart(product);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content:
-                      Text('${product.name} wurde zum Warenkorb hinzugefügt.'),
+              child: GridTile(
+                header: Text(
+                  product.name,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white),
                 ),
-              );
-            },
+                footer: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.description,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 170, 170, 170)),
+                      ),
+                      Text.rich(
+                        TextSpan(
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 170, 170, 170)),
+                          text: 'Price:',
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: '${product.price} €',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Colors.white,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 25, 5, 40),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover, image: AssetImage(product.image)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
+          Positioned(
+            right: 0,
+            bottom: -10,
+            child: IconButton(
+              icon: const Icon(
+                Icons.add_shopping_cart_rounded,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                cartProvider.addToCart(product);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
