@@ -45,11 +45,14 @@ class ShoppingListItem extends StatelessWidget {
                 ),
               ),
               child: GridTile(
-                header: Text(
-                  product.name,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
+                header: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    product.name,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
                 footer: Padding(
                   padding: const EdgeInsets.only(left: 10),
